@@ -6,6 +6,8 @@ export class Login {
     readonly passwordField: Locator
     readonly loginButton: Locator
     readonly loginSuccesful: Locator
+    readonly wrongUsernameLogin: Locator
+    readonly wrongPasswordLogin: Locator
 
 
 
@@ -15,6 +17,8 @@ export class Login {
         this.passwordField = page.getByRole('textbox', { name: 'Password' })
         this.loginButton = page.getByRole('button', { name: ' Login' })
         this.loginSuccesful = page.getByText('You logged into a secure area')
+        this.wrongUsernameLogin = page.getByText('Your username is invalid! ×')
+        this.wrongPasswordLogin = page.getByText('Your password is invalid! ×')
     }
 
 

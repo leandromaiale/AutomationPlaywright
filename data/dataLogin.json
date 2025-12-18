@@ -2,7 +2,9 @@
   "users": [
     {
       "successfulUsername": "tomsmith",
-      "successfulPassword": "SuperSecretPassword!"
+      "successfulPassword": "SuperSecretPassword!",
+      "wrongUsername": "test",
+      "wrongPassword": "test123"
     }
   ]
 }
