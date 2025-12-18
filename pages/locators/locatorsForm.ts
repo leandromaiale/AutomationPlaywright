@@ -18,7 +18,8 @@ export const formLocators = {
         cityDropdownField: (page: Page) => page.getByText('Select City'),
         citySelectionOption: (page: Page) => page.getByText('Panipat', { exact: true }),
         submitButton: (page: Page) => page.getByRole('button', { name: 'Submit' }),
-        submitTable: (page: Page) => page.locator('.table-responsive tbody tr')
+        submitTable: (page: Page) => page.locator('.table-responsive tbody tr'),
+        locatorPrueba: (page: Page) => page.locator('table-responsive tbody tr')
 
 }
 
