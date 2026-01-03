@@ -1,28 +1,24 @@
 {
   "validData": {
-    "firstNameField": "Juan",
-    "lastNameField": "Perez",
-    "emailField": "correodeprueba@correo.com",
-    "mobileNumberField": "0113694268741",
-    "bithdayDateField": "10 Dec 1995",
-    "subjectField": "Social",
-    "addressField": "Calle 122 Nro. 453",
-    "state": "Haryana",
-    "city": "Karnal"
+    "firstName": "Juan",
+    "lastName": "Garcia",
+    "email": "correodeprueba@correo.com",
+    "mobile": "0113694268",
+    "birthday": "10 December,1995",
+    "subjects": ["Maths", "Social Studies"],
+    "hobbies": ["Music"],
+    "address": "Calle 122 Nro. 453"
   },
+
+  "invalidData": {
+    "firstName": "",
+    "lastName": "",
+    "email": "correodeprueba",
+    "mobile": "",
+    "birthday": "10 December,1995",
+    "subject": "Social Studies",
+    "address": ""
+  }
+
   
-
-
-"tableData": {
-  "Student Name": "Juan Perez",
-  "Student Email": "correodeprueba@correo.com",
-  "Gender": "Male",
-  "Hobbies": "Music",
-  "Mobile": "0113694268",
-  "Date of Birth": "10 December,1995",
-  "Subjects": "Social Studies",
-  "Picture": "1144476.png",
-  "Address": "Calle 122 Nro. 453",
-  "State and City": "Haryana Panipat"
-}
 }
