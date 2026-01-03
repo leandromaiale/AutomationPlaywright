@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { Page, Locator } from "@playwright/test";
 
 export const formLocators = {
         firstNameField: (page: Page) => page.getByRole('textbox', { name: 'First Name' }),
@@ -9,7 +9,7 @@ export const formLocators = {
         bithdayDateField: (page: Page) => page.locator('#dateOfBirthInput'),
         subjectField: (page: Page) => page.locator('#subjectsInput'),
         subjectSelecctionField: (page: Page) => page.getByText('Social Studies', { exact: true }),
-        socialSelecctionSubject: (page: Page) => page.getByText('Social Studies', { exact: true }),
+        socialSelecctionSubject: (page: Page, value: string): Locator =>  page.locator('[id^="react-select"][id$="-option-0"]',{ hasText: value }),
         hobbiesCheckField: (page: Page) => page.getByText('Music'),
         uploadImageButton: (page: Page) => page.getByRole('button', { name: 'Select picture' }),
         addressField: (page: Page) => page.getByRole('textbox', { name: 'Current Address' }),

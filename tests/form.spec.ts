@@ -1,55 +1,72 @@
 import { test, Page, Browser, expect } from '@playwright/test'
-import { BasePage } from '../pages/basePage';
-import { ElementsPage } from '../pages/ElementsPage';
 import { URLs } from '../urls/demoqa';
 import { FormPage } from '../pages/FormPage';
 import dataFormDemo from '../data/dataFormDemo.json';
-
-(async () => {
-
-    test.describe('Complete the form', () => {
-
-        test('Valid data', async ({ page }) => {
-            const form = new FormPage(page)
-            const base = new BasePage(page)
-
-                await test.step('I navigate to the Form element page', async () => {
-                    await base.loadUrl(URLs.formAutomation)
-
-                })
-            
-                await test.step('Complete the form with valid information', async () => {
-                    await form.fillFirstNameField(dataFormDemo.validData.firstNameField);
-                    await form.fillLastNameField(dataFormDemo.validData.lastNameField);
-                    await form.fillEmailField(dataFormDemo.validData.emailField);
-                    await form.selectRadioButtonGender();
-                    await form.fillMobileNumberField(dataFormDemo.validData.mobileNumberField);
-                    await form.fillDateBithdayField(dataFormDemo.validData.bithdayDateField);
-                    await form.pressEnter(page)
-                    await form.fillSubjectField(dataFormDemo.validData.subjectField);
-                    await form.expectVisibleSubject();
-                    await form.pressEnter(page)
-                    await form.selectCheckboxHobbies();
-                    await form.uploadImageForm();
-                    await form.fillCurrentAddressField(dataFormDemo.validData.addressField);
-                    await form.clickStateField();
-                    await form.clickSelectionStateOption();
-                    await form.clickCityField();
-                    await form.clickSelectionCityOption();
-                    await form.clickSubmitButton();
-                    //Expects
-                    const valoresColumna = await form.verificationTable();
-                    expect(valoresColumna).toEqual(dataFormDemo.tableData)
-                })
-                
+import { FormBuilder } from '../builders/FormBuilder';
+import { FormValidator } from "../validators/FormValidator";
 
 
+test.describe('Complete the form', () => {
+
+    test.beforeEach(async ({ page }) => {
+        const form = new FormPage(page);
+
+        await form.loadUrl(URLs.formAutomation);
+    });
+
+
+
+    test('Should submit form successfully with valid data', async ({ page }) => {
+        const form = new FormPage(page)
+
+        await test.step('I navigate to the Form element page', async () => {
+            await form.loadUrl(URLs.formAutomation)
+
+        })
+
+        await test.step('Complete the form with valid information', async () => {
+
+            const result = await FormBuilder
+                .using(form)
+                .withData(dataFormDemo.validData)
+                .withDefaultSelections()
+                .submit();
+
+            expect(result.actualTable).toEqual(result.expectedTable)
+        })
 
 
     })
 
+    test('Validate warnings for fields with invalid data', async ({ page }) => {
+        const form = new FormPage(page)
+        const validator = new FormValidator(form);
+        await test.step('I navigate to the Form element page', async () => {
+            await form.loadUrl(URLs.formAutomation)
+
+        })
+
+        await test.step('Complete the form with invalid information', async () => {
+            await FormBuilder
+                .using(form)
+                .withData(dataFormDemo.invalidData)
+                .submit();
+
+        })
+
+        await test.step('I validate that the fields display the expected errors', async () => {
+
+
+            await validator.expectInvalid([
+                "firstName",
+                "lastName",
+                "email",
+                "mobile",
+            ]);
+        })
+
 
     })
+})
 
 
-})();

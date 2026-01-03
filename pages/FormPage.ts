@@ -1,8 +1,14 @@
-import {BasePage} from "./basePage";
-import { ElementsLocators } from "./locators/locatorsElements";
-import { Page, Locator } from "@playwright/test";
+import { BasePage } from "./basePage";
+import { Page, Locator, expect } from "@playwright/test";
 import { formLocators } from "./locators/locatorsForm";
 import { TEST_IMAGE_PATH } from '../utils/filepaths';
+import { FormData } from '../src/models/FormData';
+
+export type FormField =
+    | "firstName"
+    | "lastName"
+    | "email"
+    | "mobile";
 
 export class FormPage extends BasePage {
     private readonly firstNameField: Locator;
@@ -12,7 +18,7 @@ export class FormPage extends BasePage {
     private readonly mobileNumberField: Locator;
     private readonly bithdayDateField: Locator;
     private readonly subjectField: Locator;
-    private readonly socialSelecctionSubject: Locator;
+    
     private readonly hobbiesCheckField: Locator;
     private readonly uploadImageButton: Locator;
     private readonly addressField: Locator;
@@ -22,9 +28,9 @@ export class FormPage extends BasePage {
     private readonly citySelectionOption: Locator;
     private readonly submitButton: Locator;
     private readonly submitTable: Locator;
-    
 
-    constructor(page: Page){
+
+    constructor(page: Page) {
         super(page)
         this.firstNameField = formLocators.firstNameField(page);
         this.lastNameField = formLocators.lastNameField(page);
@@ -33,7 +39,7 @@ export class FormPage extends BasePage {
         this.mobileNumberField = formLocators.mobileNumberField(page);
         this.bithdayDateField = formLocators.bithdayDateField(page);
         this.subjectField = formLocators.subjectField(page);
-        this.socialSelecctionSubject = formLocators.socialSelecctionSubject(page);
+        
         this.hobbiesCheckField = formLocators.hobbiesCheckField(page);
         this.uploadImageButton = formLocators.uploadImageButton(page);
         this.addressField = formLocators.addressField(page);
@@ -41,82 +47,86 @@ export class FormPage extends BasePage {
         this.stateSelectionOption = formLocators.stateSelectionOption(page);
         this.cityDropdownField = formLocators.cityDropdownField(page);
         this.citySelectionOption = formLocators.citySelectionOption(page);
-        this.submitButton = formLocators.submitButton(page);    
+        this.submitButton = formLocators.submitButton(page);
         this.submitTable = formLocators.submitTable(page)
 
     }
 
-    async fillFirstNameField(value: string){
-        await this.fillField(this.firstNameField, value);
+    async loadUrlForm(url: string) {
+        await this.loadUrl(url)
     }
 
-    async fillLastNameField(value: string){
-        await this.fillField(this.lastNameField, value);
+    //Methods for filling in the form fields
+
+    async fillFirstName(value: string) {
+        await this.firstNameField.fill(value)
     }
 
-    async fillEmailField(value: string){
-        await this.fillField(this.emailField, value)
+    async fillLastName(value: string) {
+        await this.lastNameField.fill(value)
     }
 
-    async selectRadioButtonGender(){
-        await this.checkElement(this.radioGenderField)
+    async fillEmailField(value: string) {
+        await this.emailField.fill(value)
     }
 
-    async fillMobileNumberField(value: string){
-        await this.fillField(this.mobileNumberField, value)
+    async fillMobilNumberField(value: string) {
+        await this.mobileNumberField.fill(value)
     }
 
-    async fillDateBithdayField(value: string){
-        await this.fillField(this.bithdayDateField, value)
+    async fillBirthdayField(value: string) {
+        await this.bithdayDateField.fill(value)
+        await this.pressEnter()
     }
 
-    async fillSubjectField(value: string){
-        await this.fillField(this.subjectField, value)
+    private subjectOption(value: string): Locator {
+  return formLocators.socialSelecctionSubject(this.page, value);
+}
+
+    async fillSubjectField(subjects: string[]) {
+        for (const subject of subjects) {
+    await this.subjectField.fill(subject);
+
+    const option = this.subjectOption(subject);
+    await expect(option).toBeVisible();
+    await option.click();
+  }
     }
 
-    async selectCheckboxHobbies(){
-        await this.checkElement(this.hobbiesCheckField)
+    async fillAdressField(value: string) {
+        await this.addressField.fill(value)
     }
 
-    async uploadImageForm(){
+    async uploadImageField() {
         await this.uploadFile(this.uploadImageButton, TEST_IMAGE_PATH);
     }
 
-    async fillCurrentAddressField(value: string){
-        await this.fillField(this.addressField, value)
+    //Form action methods
+
+    async checkRadioButtonGender() {
+        await this.radioGenderField.check()
     }
 
-    async clickStateField(){
-        await this.clickOn(this.stateDropdownField)
+    async checkHobbiesCheckbox() {
+        await this.hobbiesCheckField.check()
     }
 
-    async clickSelectionStateOption(){
-        await this.clickOn(this.stateSelectionOption)
+    async stateSelectionField() {
+        await this.stateDropdownField.click()
+        await this.stateSelectionOption.click()
     }
 
-    async clickCityField(){
-        await this.clickOn(this.cityDropdownField)
+    async citySelectionField() {
+        await this.cityDropdownField.click()
+        await this.citySelectionOption.click()
     }
 
-    async clickSelectionCityOption(){
-        await this.clickOn(this.citySelectionOption)
+
+    async clickSubmitButton() {
+        await this.submitButton.click()
     }
 
-    async clickSubmitButton(){
-        await this.clickOn(this.submitButton)
-    }
-
-    // async verificationTable(): Promise<string[]> {
-    //     const values = await this.submitTable.allTextContents();
-    //     return values;
-    // }
-
-    //Expects
-
-    async expectVisibleSubject(){
-        await this.expectVisible(this.socialSelecctionSubject)
-    }
-
+    //Assertions
 
     async verificationTable(): Promise<Record<string, string>> {
         const data: Record<string, string> = {};
@@ -137,18 +147,26 @@ export class FormPage extends BasePage {
 
         return data;
     }
-    
 
 
- 
-    
+    getField(field: FormField): Locator {
+        const fields: Record<FormField, Locator> = {
+            firstName: this.firstNameField,
+            lastName: this.lastNameField,
+            email: this.emailField,
+            mobile: this.mobileNumberField,
+        };
+
+        return fields[field];
+    }
+
+
+
+
+
+
+
+
 }
 
-
-
-
-// await page.getByText('Select State').click();
-// await page.getByText('Haryana', { exact: true }).click();
-// await page.getByText('Select City').click();
-// await page.getByText('Panipat', { exact: true }).click();
 
