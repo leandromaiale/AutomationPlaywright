@@ -16,9 +16,24 @@
     "email": "correodeprueba",
     "mobile": "",
     "birthday": "10 December,1995",
-    "subject": "Social Studies",
+    "subject": ["Social Studies"],
     "address": ""
-  }
+  },
+
+  "invalidEmails": [
+    {
+      "description": "missing @ symbol",
+      "email": "juan.test.com"
+    },
+    {
+      "description": "missing domain",
+      "email": "juan@"
+    },
+    {
+      "description": "missing username",
+      "email": "@test.com"
+    }
+  ]
 
   
 }
