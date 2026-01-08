@@ -60,8 +60,8 @@ export class FormBuilder {
       await this.form.fillBirthdayField(d.birthday);
 
     if (d.subjects?.length) {
-    await this.form.fillSubjectField(d.subjects);
-}
+      await this.form.fillSubjectField(d.subjects);
+    }
 
     if (d.address !== undefined)
       await this.form.fillAdressField(d.address);
@@ -86,9 +86,30 @@ export class FormBuilder {
 
     return { actualTable, expectedTable };
   }
+
+  async attemptSubmit() {
+    if (!this.data) return;
+
+    const d = this.data;
+
+    if (d.firstName !== undefined)
+      await this.form.fillFirstName(d.firstName);
+
+    if (d.lastName !== undefined)
+      await this.form.fillLastName(d.lastName);
+
+    if (d.email !== undefined)
+      await this.form.fillEmailField(d.email);
+
+    if (d.mobile !== undefined)
+      await this.form.fillMobilNumberField(d.mobile);
+
+    await this.form.clickSubmitButton();
+  }
+
 }
 
-  
 
-  
+
+
 
