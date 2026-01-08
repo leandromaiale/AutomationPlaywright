@@ -1,6 +1,6 @@
 import { FormPage } from '../pages/FormPage'
 import { FormData } from '../src/models/FormData'
-import { TableDataBuilder, TableData } from './TableDataBuilder';
+import { TableDataBuilder, TableData } from './tableDataBuilder';
 
 
 export class FormBuilder {

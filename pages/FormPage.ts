@@ -1,7 +1,7 @@
 import { BasePage } from "./basePage";
 import { Page, Locator, expect } from "@playwright/test";
 import { formLocators } from "./locators/locatorsForm";
-import { TEST_IMAGE_PATH } from '../utils/filepaths';
+import { TEST_IMAGE_PATH } from '../utils/filePaths';
 import { FormData } from '../src/models/FormData';
 
 export type FormField =
