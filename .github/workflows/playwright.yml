@@ -33,10 +33,30 @@ jobs:
       with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-report       
+          publish_dir: allure-report   
+    - name: Run Playwright tests
+      run: npx playwright test
+      continue-on-error: true
+    - name: Generate Allure report
+      if: always()
+      run: |
+          npm install -g allure-commandline
+          echo "Generating Allure report..."
+          allure generate allure-results -o allure-report --clean
+          echo "Allure report content:"
+          ls -la allure-report          
     - name: Debug folders
       if: always()
       run: |
           ls -la
           ls -la allure-results || echo "no allure-results"
           ls -la allure-report || echo "no allure-report"
+    - name: Verify index.html exists
+      if: always()
+      run: |
+          if [ ! -f allure-report/index.html ]; then
+          echo "❌ index.html NOT FOUND"
+           exit 1
+          else
+            echo "✅ index.html found"
+          fi      
