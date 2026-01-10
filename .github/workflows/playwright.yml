@@ -32,3 +32,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-report       
+    - name: Debug folders
+      if: always()
+      run: |
+          ls -la
+          ls -la allure-results || echo "no allure-results"
+          ls -la allure-report || echo "no allure-report"
