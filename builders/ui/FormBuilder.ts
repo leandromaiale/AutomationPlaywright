@@ -1,5 +1,5 @@
 import { FormPage } from '../pages/FormPage'
-import { FormData } from '../src/models/FormData'
+import { FormData } from '../src/ui/models/FormData'
 import { TableDataBuilder, TableData } from './tableDataBuilder';
 
 

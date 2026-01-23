@@ -1,10 +1,9 @@
 import { test, Page, Browser, expect } from '@playwright/test'
-import { URLs } from '../urls/demoqa';
-import { FormPage } from '../pages/FormPage';
-import dataFormDemo from '../data/dataFormDemo.json';
-import { FormTestData } from '../src/models/TestData';
-import { FormBuilder } from '../builders/FormBuilder';
-import { FormValidator } from "../validators/FormValidator";
+import { URLs } from '../../urls/demoqa';
+import { FormPage } from '../../pages/FormPage';
+import dataFormDemo from '../../data/dataFormDemo.json';
+import { FormBuilder } from '../../builders/ui/FormBuilder';
+import { FormValidator } from "../../validators/FormValidator";
 
 
 test.describe('Complete the form', () => {
