@@ -1,0 +1,12 @@
+{
+  "validPets": [
+    {
+      "name": "Dog Alpha",
+      "status": "available"
+    },
+    {
+      "name": "Cat Beta",
+      "status": "sold"
+    }
+  ]
+}

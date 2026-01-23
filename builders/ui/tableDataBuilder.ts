@@ -1,4 +1,4 @@
-import { FormData } from "../src/models/FormData"
+import { FormData } from "../../src/ui/models/FormData"
 
 export interface TableData {
     [key: string]: string;
