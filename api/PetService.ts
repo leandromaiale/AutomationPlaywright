@@ -28,6 +28,15 @@ export class PetService {
         return this.request.delete(`${this.baseUrl}/pet/${id}`)
     }
 
+    async updatePet(pet: any) {
+        const response = await this.request.put(`${this.baseUrl}/pet`, {
+            data: pet,
+        });
+        
+        expect(response.status()).toBe(200);
+        return response;
+    }
+
 
 
 }
