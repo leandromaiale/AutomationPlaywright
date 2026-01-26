@@ -7,7 +7,7 @@ test.describe('Pet API - CRUD', () => {
     
     for (const petData of petsData.validPets) {
 
-        test(`TC-001 - Create Pet: ${petData.name}`, async ({ request }) => {
+        test(`TC-001 - Create Pet (POST): ${petData.name}`, async ({ request }) => {
             
             const petService = new PetService(request)
 
@@ -29,7 +29,7 @@ test.describe('Pet API - CRUD', () => {
         })        
     }
 
-        test('TC-002 - Get Pet by ID', async ({ request }) => {
+        test('TC-002 - Get Pet by ID (GET)', async ({ request }) => {
             const petService = new PetService(request)
 
             const pet = PetBuilder
@@ -52,6 +52,35 @@ test.describe('Pet API - CRUD', () => {
 
         })
     
+        test('TC-003 - Update pet (PUT)', async ({ request }) => {
 
+            const petService = new PetService(request)
+
+            const orginalPet = PetBuilder
+                .aPet()
+                .withName('originalDog')
+                .withStatus('sold')
+                .build();
+
+            const response = await petService.createPet(orginalPet);
+            const body = await response.json();
+
+            const updatePet = {
+                ...body,
+                name: 'updateDog',
+                status: 'available',
+            }
+
+            const updateResponse = await petService.updatePet(updatePet);
+            const updateResponseBody = await updateResponse.json();
+
+            expect(updateResponseBody.id).toBe(body.id);
+            expect(updateResponseBody.name).toBe('updateDog')
+            expect(updateResponseBody.status).toBe('available')
+
+
+            
+        })
+        
 
 })
