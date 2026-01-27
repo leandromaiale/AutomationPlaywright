@@ -1,163 +1,186 @@
 🧪 Playwright Automation Framework (TypeScript)
 📌 Overview
 
-This repository contains a scalable UI automation framework built with Playwright + TypeScript, designed following industry best practices such as:
+    This repository contains a scalable automation framework built with Playwright and TypeScript, designed to reflect real-world QA Automation practices used in modern engineering teams.
 
-    # Page Object Model (POM)
+    The project demonstrates how to design maintainable, readable, and extensible test automation by applying proven patterns and architectural principles.
 
-    # Builder pattern
+    The DemoQA Practice Form is used as a real-world UI example, complemented by API testing to showcase a complete testing strategy.
 
-    # Clear separation of responsibilities
+🎯 Framework Goals
 
-    # Support for positive and negative test flows
+    Build readable and expressive tests
 
-    # Maintainable and extensible architecture
+    Reduce duplication and fragile test logic
 
-The project uses the DemoQA Practice Form as a real-world example
+    Centralize UI knowledge in Page Objects and Locators
 
-🎯 Goals of the Framework
+    Support positive and negative test flows
 
-    # Keep tests readable and expressive
+    Enable data-driven testing
 
-    # Avoid duplication and fragile test logic
-
-    # Centralize UI knowledge in Pages & Locators
-
-    # Make test data dynamic and reusable
-
-    # Support complex scenarios (multiple subjects, hobbies, validations)
+    Combine UI and API testing following the test pyramid
 
 🏗️ Project Structure
-.
-├── builders/          # High-level test orchestration (FormBuilder, TableDataBuilder)
-├── pages/             # Page Objects (UI actions only)
-├── locators/          # Centralized locators
-├── validators/        # UI validations & assertions
-├── models/            # TypeScript contracts (FormData, TableData)
-├── data/              # Test data (JSON)
-├── tests/             # Playwright test specs
+├── api/              # API clients and services
+├── builders/         # Test orchestration (FormBuilder, TableDataBuilder, PetBuilder)
+├── pages/            # Page Objects (UI interactions only)
+├── locators/         # Centralized locators
+├── validators/       # UI and API assertions
+├── models/           # TypeScript contracts (FormData, TableData)
+├── data/             # Test data (JSON)
+├── tests/            # Playwright test specs (UI & API)
 ├── playwright.config.ts
 └── README.md
 
-🧠 Architecture & Design Decisions
-🔹 Page Objects (Pages)
+🧠 Architecture & Design Principles
+🔹 Page Object Model (POM)
 
-    # Contain only UI interactions
+    Page Objects contain only UI interactions
 
-    # No test logic or assertions
+    No assertions or test logic inside Pages
 
-    # Expose meaningful actions (e.g. fillFirstName, submitForm)
+    Expose meaningful actions (e.g. fillFirstName, submitForm)
 
-    # Locators are injected via locators module
+    Locators are injected via a dedicated module
 
-👉 Pages do not know about test data or validations.
+👉 Pages are UI-focused and unaware of test data or validations.
 
+    
+🔹 Builder Pattern
 
-🔹 Builders (FormBuilder, TableDataBuilder)
+    Builders orchestrate how data is applied and validated, keeping test code clean and expressive.
 
-Builders orchestrate how data is applied and validated.
+    FormBuilder
 
-FormBuilder
+    Accepts partial or full form data
 
-    # Accepts partial or full form data
+    Supports positive and negative flows
 
-    # Supports positive and negative flows
+    Handles default UI selections (radio buttons, checkboxes, dropdowns)
 
-    # Handles default selections (radio, checkbox, dropdowns)
+    Keeps test logic fluent and readable
 
-    # Keeps test code clean and fluent
-
-Example:
-
-await FormBuilder
-  .using(formPage)
-  .withData(validData)
-  .withDefaultSelections()
-  .submit();
+    await FormBuilder
+        .using(formPage)
+        .withData(validData)
+        .withDefaultSelections()
+        .submit();
 
 TableDataBuilder
 
-    # Dynamically generates expected table values
+    Dynamically generates expected table results
 
-    # Ensures assertions always reflect input data
+    Ensures assertions always reflect input data
 
-    # Avoids hardcoded expected results
+    Avoids hardcoded expected values
 
-const expectedTable = TableDataBuilder.fromFormData(validData);
-
+        const expectedTable = TableDataBuilder.fromFormData(validData);
 
 🔹 Validators
 
-    # Centralize UI assertions
+    Centralize UI and API assertions
 
-    # Separate what is validated from how tests are written
+    Separate what is validated from how tests are written
 
-    # Support negative scenarios (invalid fields, missing data)
+    Support negative scenarios (invalid or missing fields)
 
-Example:
+        await formValidator.expectInvalid([
+            "firstName",
+            "lastName",
+            "email",
+            "mobile"
+        ]);
 
-await formValidator.expectInvalid([
-  "firstName",
-  "lastName",
-  "email",
-  "mobile"
-]);
+🔹 Strong Typing with Models
+
+    TypeScript interfaces enforce clear contracts between layers:
+
+    FormData – input form data
+
+    TableData – expected submitted results
+
+    Benefits:
+
+    Compile-time safety
+
+    Easier refactoring
+
+    Self-documented architecture
 
 
-🔹 Models (TypeScript Contracts)
+🔌 API Testing (Playwright API)
 
-Strong typing is enforced using interfaces:
+The framework includes API tests built with Playwright’s API testing capabilities, following the same architectural principles as UI automation.
 
-    # FormData – represents input form data
+API Test Coverage
 
-    # TableData – represents expected submitted results
+    POST /pet – create resource
 
-This ensures:
+    GET /pet/{id} – retrieve by ID
 
-    # Compile-time safety
+    PUT /pet – update resource
 
-    # Clear contracts between layers
+    DELETE /pet/{id} – remove resource
 
-    # Easier refactoring
+    Negative scenarios (e.g. 404 not found)
+
+    Each API test:
+
+    Creates its own data
+
+    Validates responses and contracts
+
+    Cleans up to remain isolated and deterministic
 
 
 🧪 Test Strategy
 ✔ Positive Scenarios
 
-    # Fill the form with valid data
+    Submit valid data
 
-    # Submit successfully
+    Validate dynamic UI results
 
-    # Validate dynamic table results
+    Confirm API responses
 
 ❌ Negative Scenarios
 
-    # Submit with missing or invalid fields
+    Validate browser-level constraints
 
-    # Validate browser-level constraints
+    Ensure invalid submissions are rejected
 
-    # Ensure no submission occurs
+    Verify proper error handling
 
 Tests focus on business intent, not UI mechanics.
 
 
 🛠️ Tech Stack
 
-    # Playwright
+    Playwright
 
-    # TypeScript
+    TypeScript
 
-    # Node.js
+    Node.js
 
-    # Page Object Model
+    Page Object Model
 
-    # Builder Pattern
+    Builder Pattern
+
+    Data-Driven Testing
+
+    REST API Testing
 
 
-🚀 How to Run
-    npm install
-    npx playwright test
+🚀 How to Run Tests
+npm install
+npx playwright test
+
+
+Run only API tests:
+
+npx playwright test tests/api
+
 
 👤 Author
 
-Created as a portfolio project to demonstrate real-world QA Automation architecture and decision-making.
+Created as a portfolio project to demonstrate QA Automation architecture, testing strategy, and engineering decision-making aligned with real-world development teams.
