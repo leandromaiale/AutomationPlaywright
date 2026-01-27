@@ -20,6 +20,7 @@
     Enable data-driven testing
 
     Combine UI and API testing following the test pyramid
+    
 
 🏗️ Project Structure
 ├── api/              # API clients and services
@@ -32,6 +33,7 @@
 ├── tests/            # Playwright test specs (UI & API)
 ├── playwright.config.ts
 └── README.md
+
 
 🧠 Architecture & Design Principles
 🔹 Page Object Model (POM)
