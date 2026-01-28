@@ -44,3 +44,4 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-report-api
           destination_dir: api
+          
