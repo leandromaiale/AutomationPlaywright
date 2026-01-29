@@ -31,7 +31,9 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run UI tests
-        run: npx playwright test --reporter=line,allure-playwright --output=allure-results/ui
+        run: |
+              export ALLURE_RESULTS_DIR=allure-results/ui
+              npx playwright test
 
       - name: Restore existing API report
         run: |
@@ -67,3 +69,10 @@ jobs:
       - name: Add landing page
         run: |
           cp allure-pages/index.html allure-report/index.html
+
+      - name: Debug Allure results
+        run: |
+              echo "=== allure-results ==="
+              ls -R allure-results || true
+              echo "=== allure-report ==="
+              ls -R allure-report || true    
