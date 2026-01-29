@@ -31,7 +31,12 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run UI tests
-        run: npx playwright test tests/ui
+        run: npx playwright test --reporter=line,allure-playwright --output=allure-results/ui
+
+      - name: Restore existing API report
+        run: |
+          git fetch origin gh-pages
+          git checkout origin/gh-pages -- api || true  
 
       - name: Restore existing API report
         run: |
