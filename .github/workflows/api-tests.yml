@@ -36,12 +36,20 @@ jobs:
         if: always()
         run: |
           npm install -g allure-commandline
-          npx allure generate allure-results/api -o allure-report/api --clean
+          npx allure generate allure-results/api -o allure-report/api --clean  
 
-      - name: Deploy API Allure report
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-report/api
-          destination_dir: api
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_branch: gh-pages
+            publish_dir: allure-report
+            force_orphan: true
+      
+      - name: Debug Allure results
+        run: |
+              echo "=== allure-results ==="
+              ls -R allure-results || true
+              echo "=== allure-report ==="
+              ls -R allure-report || true    
           
