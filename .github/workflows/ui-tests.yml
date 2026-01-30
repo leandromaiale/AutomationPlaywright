@@ -1,15 +1,9 @@
-name: UI Tests
+name: UI Tests + Publish Allure Reports
 
 on:
+  push:
+    branches: [main]
   pull_request:
-    paths:
-      - "pages/**"
-      - "builders/**"
-      - "validators/**"
-      - "tests/**"
-      - ".github/workflows/ui-tests.yml"
-  schedule:
-    - cron: "0 2 * * *" # nightly
 
 jobs:
   ui-tests:
@@ -30,50 +24,42 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      # ---------------- UI TESTS ----------------
       - name: Run UI tests
         run: |
-              export ALLURE_RESULTS_DIR=allure-results/ui
-              npx playwright test
+          export ALLURE_RESULTS_DIR=allure-results/ui
+          npx playwright test tests/ui
 
-      - name: Restore existing API report
+      - name: Generate UI Allure report
         run: |
-          git fetch origin gh-pages
-          git checkout origin/gh-pages -- api || true  
+          npx allure generate allure-results/ui -o allure-report/ui --clean
 
+      # ---------------- LANDING PAGE ----------------
       - name: Create landing page
         run: |
           cat <<EOF > allure-report/index.html
-            <!DOCTYPE html>
-              <html>
-                <head>
-                  <meta charset="UTF-8" />
-                  <title>Automation Reports</title>
-                </head>
-              <body>
-                <h1>Automation Test Reports</h1>
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="UTF-8" />
+              <title>Automation Test Reports</title>
+            </head>
+            <body>
+              <h1>Automation Test Reports</h1>
               <ul>
-                  <li><a href="./ui/">UI Test Report</a></li>
-                  <li><a href="./api/">API Test Report</a></li>
+                <li><a href="./ui/">UI Test Report</a></li>
+                <li><a href="./api/">API Test Report</a></li>
               </ul>
-              </body>
-              </html>
+            </body>
+          </html>
           EOF
-          
+
+      # ---------------- DEPLOY ----------------
       - name: Deploy to GitHub Pages
+        if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_branch: gh-pages
-            publish_dir: allure-report
-            force_orphan: true
-
-      - name: Add landing page
-        run: |
-          cp allure-pages/index.html allure-report/index.html
-
-      - name: Debug Allure results
-        run: |
-              echo "=== allure-results ==="
-              ls -R allure-results || true
-              echo "=== allure-report ==="
-              ls -R allure-report || true    
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-report
+          force_orphan: true
