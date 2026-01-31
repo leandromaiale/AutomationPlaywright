@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
-import { PetService } from '../../api/PetService'
-import { PetBuilder } from '../../builders/api/PetBuilder'
-import petsData from '../../data/pets.json'
+import { PetService } from '../api/PetService'
+import { PetBuilder } from '../builders/api/PetBuilder'
+import petsData from '../data/pets.json'
 
 test.describe('Pet API - CRUD', () => {
     
