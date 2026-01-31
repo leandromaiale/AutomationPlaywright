@@ -3,7 +3,6 @@ name: API Tests
 on:
   push:
     branches: [main]
-  pull_request:
 
 jobs:
   api-tests:
@@ -21,24 +20,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps  
-
-      # ---------------- API TESTS ----------------
       - name: Run API tests
-<<<<<<< HEAD
         run: |
           export ALLURE_RESULTS_DIR=allure-results/api
-          npx playwright test --project=ui
-=======
-        run: npx playwright test --project=api
->>>>>>> b04db4ebf14716cf63420e630494761f8dc0d68c
+          npx playwright test --project=api
 
-      - name: Generate API Allure report
+      - name: Generate Allure API report
         run: |
           npx allure generate allure-results/api -o allure-report/api --clean
 
-      - name: Publish API report
+      - name: Publish API report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
