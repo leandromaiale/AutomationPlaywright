@@ -38,6 +38,10 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
       name: 'ui',
       testMatch: /.*\.ui\.spec\.ts/,
       use: {
@@ -48,7 +52,7 @@ export default defineConfig({
       name: 'api',
       testMatch: /.*\.api\.spec\.ts/,
     },
-
+    
     {
       name: 'API Test',
       testMatch: 'APITest/**/*',
