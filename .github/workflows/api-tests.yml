@@ -23,9 +23,7 @@ jobs:
 
       # ---------------- API TESTS ----------------
       - name: Run API tests
-        run: |
-          export ALLURE_RESULTS_DIR=allure-results/api
-          npx playwright test tests/api
+        run: npx playwright test tests/api
 
       - name: Generate API Allure report
         run: |
