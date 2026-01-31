@@ -26,16 +26,18 @@ jobs:
 
       # ---------------- API TESTS ----------------
       - name: Run API tests
-        run: npx playwright test --project=ui
+        run: |
+          export ALLURE_RESULTS_DIR=allure-results/api
+          npx playwright test --project=ui
 
       - name: Generate API Allure report
         run: |
           npx allure generate allure-results/api -o allure-report/api --clean
 
-      # (opcional) guardar artefacto si querés
-      - name: Upload API Allure artifact
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Publish API report
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: api-allure-report
-          path: allure-report/api
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          destination_dir: api
+          publish_dir: allure-report/api
