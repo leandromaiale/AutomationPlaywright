@@ -26,7 +26,7 @@ jobs:
 
       # ---------------- UI TESTS ----------------
       - name: Run UI tests
-        run: npx playwright test 
+        run: npx playwright test --project=ui
 
       - name: Generate UI Allure report
         run: |
