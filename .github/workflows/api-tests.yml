@@ -23,7 +23,7 @@ jobs:
 
       # ---------------- API TESTS ----------------
       - name: Run API tests
-        run: npx playwright test tests/api
+        run: npx playwright test 
 
       - name: Generate API Allure report
         run: |
