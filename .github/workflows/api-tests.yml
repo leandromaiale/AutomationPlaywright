@@ -21,11 +21,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps  
+
       # ---------------- API TESTS ----------------
       - name: Run API tests
-        run: |
-          export ALLURE_RESULTS_DIR=allure-results/api
-          npx playwright test tests/api
+        run: npx playwright test 
 
       - name: Generate API Allure report
         run: |
