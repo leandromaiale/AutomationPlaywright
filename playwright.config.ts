@@ -38,48 +38,22 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
       name: 'ui',
       testMatch: /.*\.ui\.spec\.ts/,
       use: {
         browserName: 'chromium',
+        baseURL: 'https://demoqa.com',
       },
     },
     {
       name: 'api',
       testMatch: /.*\.api\.spec\.ts/,
-    },
-
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
-
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
-    {
-      name: 'API Test',
-      testMatch: 'APITest/**/*',
       use: {
-        baseURL: 'https://api.github.com',
+        baseURL: 'https://petstore.swagger.io/v2',
         extraHTTPHeaders: {
-          'Accept': 'aplication/vnd.github.v3+json',
-          'Authorization': `token ${process.env.API_TOKEN}`,
-        }
-      }
-
+          Accept: 'application/json',
+        },
+      },
     },
   ],
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });
