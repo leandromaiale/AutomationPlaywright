@@ -27,7 +27,6 @@ jobs:
       # ---------------- UI TESTS ----------------
       - name: Run UI tests
         run: |
-         export ALLURE_RESULTS_DIR=allure-results/ui 
          npx playwright test --project=ui
 
       - name: Generate UI Allure report
