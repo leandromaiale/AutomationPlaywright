@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:ui": "npx playwright test --project=ui && powershell -Command \"New-Item -ItemType Directory -Force allure-results/ui; Move-Item allure-results/*.json allure-results/ui -Force\"",
+    "test:api": "npx playwright test --project=api && powershell -Command \"New-Item -ItemType Directory -Force allure-results/api; Move-Item allure-results/*.json allure-results/api -Force\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -12,6 +15,7 @@
     "@playwright/test": "^1.56.1",
     "@types/node": "^24.10.0",
     "allure-commandline": "^2.36.0",
-    "allure-playwright": "^3.4.3"
+    "allure-playwright": "^3.4.5",
+    "cross-env": "^10.1.0"
   }
 }
