@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","13177","TC-002 - Validate warnings for fields with invalid data","ui","2026-02-02","passed","2026-02-02","Complete the form","form.ui.spec.ts","",""
+"","1983","TC-003 - Complete the Email field with incorrect values","ui","2026-02-02","passed","2026-02-02","Complete the form","form.ui.spec.ts","",""
+"","4366","TC-001 - Should submit form successfully with valid data","ui","2026-02-02","passed","2026-02-02","Complete the form","form.ui.spec.ts","",""
