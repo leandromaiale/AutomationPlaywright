@@ -1,5 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","5933","TC-001 - Create Pet (POST): Cat Beta","api","2026-02-01","passed","2026-02-01","Pet API - CRUD","petstore.api.spec.ts","",""
-"","6424","TC-002 - Get Pet by ID (GET)","api","2026-02-01","passed","2026-02-01","Pet API - CRUD","petstore.api.spec.ts","",""
-"","5919","TC-003 - Update pet (PUT)","api","2026-02-01","passed","2026-02-01","Pet API - CRUD","petstore.api.spec.ts","",""
-"","6062","TC-001 - Create Pet (POST): Dog Alpha","api","2026-02-01","passed","2026-02-01","Pet API - CRUD","petstore.api.spec.ts","",""
