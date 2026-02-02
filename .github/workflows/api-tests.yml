@@ -26,7 +26,7 @@ jobs:
 
       - name: Generate Allure API report
         run: |
-          npx allure generate allure-results/api -o allure-report/api --clean
+          npx allure generate allure-results -o allure-report/api --clean
 
       - name: Publish API report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

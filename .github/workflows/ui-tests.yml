@@ -31,7 +31,7 @@ jobs:
 
       - name: Generate UI Allure report
         run: |
-          npx allure generate allure-results/ui -o allure-report/ui --clean
+          npx allure generate allure-results -o allure-report/ui --clean
 
       # ---------------- DEPLOY ----------------
       - name: Publish UI report
