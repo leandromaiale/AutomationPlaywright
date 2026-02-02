@@ -1,8 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","15647","TC-003 - Complete the Email field with incorrect values","ui","2026-02-01","passed","2026-02-01","Complete the form","form.ui.spec.ts","",""
-"","1647","TC-001 - Create Pet (POST): Cat Beta","api","2026-02-01","passed","2026-02-01","Pet API - CRUD","petstore.api.spec.ts","",""
-"","22221","TC-001 - Should submit form successfully with valid data","ui","2026-02-01","passed","2026-02-01","Complete the form","form.ui.spec.ts","",""
-"","19023","TC-002 - Validate warnings for fields with invalid data","ui","2026-02-01","passed","2026-02-01","Complete the form","form.ui.spec.ts","",""
-"","1679","TC-001 - Create Pet (POST): Dog Alpha","api","2026-02-01","passed","2026-02-01","Pet API - CRUD","petstore.api.spec.ts","",""
-"","1857","TC-002 - Get Pet by ID (GET)","api","2026-02-01","passed","2026-02-01","Pet API - CRUD","petstore.api.spec.ts","",""
-"","1683","TC-003 - Update pet (PUT)","api","2026-02-01","passed","2026-02-01","Pet API - CRUD","petstore.api.spec.ts","",""
